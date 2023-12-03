@@ -5,7 +5,24 @@ def count_batteries_by_health(present_capacities):
     "exchange": 0,
     "failed": 0
   }
+  # Rated capacity of a new battery
+    rated_capacity = 120
 
+    # Loop through each battery's present capacity
+    for present_capacity in present_capacities:
+        # Calculate SoH
+        soh = (present_capacity / rated_capacity) * 100
+
+        # Classify batteries based on SoH and update counts
+        if soh > 80:
+            counts["healthy"] += 1
+        elif 62 <= soh <= 80:
+            counts["exchange"] += 1
+        else:
+            counts["failed"] += 1
+
+    # Return the counts
+    return counts
 
 def test_bucketing_by_health():
   print("Counting batteries by SoH...\n")
